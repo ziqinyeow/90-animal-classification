@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Animal Classification Model</title>
+  </head>
+  <body
+    class="
+      flex flex-col
+      justify-center
+      items-start
+      max-w-3xl
+      px-4
+      py-8
+      mx-auto
+      2xl:max-w-5xl
+    "
+  >
+    <input type="file" accept="image/*" id="file" hidden />
+    <label
+      htmlFor="file"
+      className="flex flex-col items-center justify-center w-full p-6 mb-5 border rounded-md cursor-pointer"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        width="48"
+        height="48"
+        className="mb-2 text-gray-600"
+      >
+        <path fill="none" d="M0 0h24v24H0z" />
+        <path
+          fill="currentColor"
+          d="M17.409 19c-.776-2.399-2.277-3.885-4.266-5.602A10.954 10.954 0 0 1 20 11V3h1.008c.548 0 .992.445.992.993v16.014a1 1 0 0 1-.992.993H2.992A.993.993 0 0 1 2 20.007V3.993A1 1 0 0 1 2.992 3H6V1h2v4H4v7c5.22 0 9.662 2.462 11.313 7h2.096zM18 1v4h-8V3h6V1h2zm-1.5 9a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"
+        />
+      </svg>
+      <div>
+        <h5 className="text-sm">
+          <span className="font-semibold">Upload</span> image
+        </h5>
+      </div>
+    </label>
+  </body>
+</html>
