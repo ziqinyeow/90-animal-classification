@@ -28,49 +28,53 @@ export default function Home() {
           <h2 className="mr-4">Animal Classification Model</h2>
           <h5 className="text-gray-400"> trained with EfficientNetB0</h5>
         </div>
-        <input
-          type="file"
-          accept="image/*"
-          id="file"
-          onChange={async (e) => {
-            // @ts-ignore
-            let image = await e.target.files[0];
-            let url;
-            try {
-              url = URL.createObjectURL(image);
-              setImageurl(url);
-            } catch (error) {}
-            setImage(image);
-          }}
-          onClick={(event) => {
-            event.target.value = null;
-          }}
-          hidden
-        />
-        <label
-          htmlFor="file"
-          className="flex flex-col items-center justify-center w-full p-6 mb-5 border-4 border-gray-600 border-dashed rounded-md cursor-pointer"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            width="48"
-            height="48"
-            className="mb-2 text-gray-600"
-          >
-            <path fill="none" d="M0 0h24v24H0z" />
-            <path
-              fill="currentColor"
-              d="M17.409 19c-.776-2.399-2.277-3.885-4.266-5.602A10.954 10.954 0 0 1 20 11V3h1.008c.548 0 .992.445.992.993v16.014a1 1 0 0 1-.992.993H2.992A.993.993 0 0 1 2 20.007V3.993A1 1 0 0 1 2.992 3H6V1h2v4H4v7c5.22 0 9.662 2.462 11.313 7h2.096zM18 1v4h-8V3h6V1h2zm-1.5 9a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"
+        {!imageurl && (
+          <div className="w-full">
+            <input
+              type="file"
+              accept="image/*"
+              id="file"
+              onChange={async (e) => {
+                // @ts-ignore
+                let image = await e.target.files[0];
+                let url;
+                try {
+                  url = URL.createObjectURL(image);
+                  setImageurl(url);
+                } catch (error) {}
+                setImage(image);
+              }}
+              onClick={(event) => {
+                event.target.value = null;
+              }}
+              hidden
             />
-          </svg>
-          <div>
-            <h5 className="text-sm">
-              <span className="font-semibold">Upload</span> image
-            </h5>
+            <label
+              htmlFor="file"
+              className="flex flex-col items-center justify-center w-full p-6 mb-5 border-4 border-gray-600 border-dashed rounded-md cursor-pointer"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="48"
+                height="48"
+                className="mb-2 text-gray-600"
+              >
+                <path fill="none" d="M0 0h24v24H0z" />
+                <path
+                  fill="currentColor"
+                  d="M17.409 19c-.776-2.399-2.277-3.885-4.266-5.602A10.954 10.954 0 0 1 20 11V3h1.008c.548 0 .992.445.992.993v16.014a1 1 0 0 1-.992.993H2.992A.993.993 0 0 1 2 20.007V3.993A1 1 0 0 1 2.992 3H6V1h2v4H4v7c5.22 0 9.662 2.462 11.313 7h2.096zM18 1v4h-8V3h6V1h2zm-1.5 9a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"
+                />
+              </svg>
+              <div>
+                <h5 className="text-sm">
+                  <span className="font-semibold">Upload</span> image
+                </h5>
+              </div>
+              {/* <h5 className="text-sm font-semibold">{image?.name}</h5> */}
+            </label>
           </div>
-          {/* <h5 className="text-sm font-semibold">{image?.name}</h5> */}
-        </label>
+        )}
         {imageurl && (
           <div className="w-full p-10 border-2 border-gray-400 border-dashed rounded-md h-96">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -88,26 +92,47 @@ export default function Home() {
             {result}
           </div>
         )}
-        <button
-          onClick={() => {
-            if (afterPredict) {
-              setAfterPredict(false);
-              setImage(null);
-              setImageurl(null);
-              setResult(null);
-            } else {
-              (async () => {
-                const result = await predict(imageRef.current);
-                setResult(result);
-              })();
-              setAfterPredict(true);
-            }
-          }}
-          className="w-full px-6 py-4 mt-10 font-bold text-white bg-gray-700 border rounded-md hover:bg-black disabled:bg-gray-200"
-          disabled={!imageurl}
-        >
-          {afterPredict ? "RESET" : "PREDICT"}
-        </button>
+        <div className="flex w-full">
+          <button
+            onClick={() => {
+              if (afterPredict) {
+                setAfterPredict(false);
+                setImage(null);
+                setImageurl(null);
+                setResult(null);
+              } else {
+                (async () => {
+                  const result = await predict(imageRef.current);
+                  setResult(result);
+                })();
+                setAfterPredict(true);
+              }
+            }}
+            className="w-full px-6 py-4 mt-10 font-bold text-white bg-gray-700 border rounded-md hover:bg-black disabled:bg-gray-200"
+            disabled={!imageurl}
+          >
+            {afterPredict ? "RESET" : "PREDICT"}
+          </button>
+          <a
+            href="https://github.com/ziqinyeow/90-animal-classification"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-6 py-4 mt-10 ml-4 font-bold text-white bg-gray-700 border rounded-md hover:bg-black disabled:bg-gray-200"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+            >
+              <path fill="none" d="M0 0h24v24H0z" />
+              <path
+                fill="white"
+                d="M12 2C6.475 2 2 6.475 2 12a9.994 9.994 0 0 0 6.838 9.488c.5.087.687-.213.687-.476 0-.237-.013-1.024-.013-1.862-2.512.463-3.162-.612-3.362-1.175-.113-.288-.6-1.175-1.025-1.413-.35-.187-.85-.65-.013-.662.788-.013 1.35.725 1.538 1.025.9 1.512 2.338 1.087 2.912.825.088-.65.35-1.087.638-1.337-2.225-.25-4.55-1.113-4.55-4.938 0-1.088.387-1.987 1.025-2.688-.1-.25-.45-1.275.1-2.65 0 0 .837-.262 2.75 1.026a9.28 9.28 0 0 1 2.5-.338c.85 0 1.7.112 2.5.337 1.912-1.3 2.75-1.024 2.75-1.024.55 1.375.2 2.4.1 2.65.637.7 1.025 1.587 1.025 2.687 0 3.838-2.337 4.688-4.562 4.938.362.312.675.912.675 1.85 0 1.337-.013 2.412-.013 2.75 0 .262.188.574.688.474A10.016 10.016 0 0 0 22 12c0-5.525-4.475-10-10-10z"
+              />
+            </svg>
+          </a>
+        </div>
       </div>
     </div>
   );
